@@ -41,6 +41,12 @@ public class UrlShortService {
 
     public UrlShortResponseDto shorten(UrlShortCreateRequestDto request) {
         String id = idSupplier.get();
+        // Note:
+        // Ideally from the requirements we have that shortened URLs should expire after a
+        // configured retention period based on the last access time, but this is not implemented like that.
+        // It can be considered as mistake from my side.
+        // Current implementation is working with fixed expiry offset.
+        // If I had more time I could implement original requirement.
         Date expire = Date.from(Instant.now(clock).plus(this.expireAdditive));
         UrlShortEntity save = repository.save(new UrlShortEntity(id, request.getUrl(), expire));
         log.info("Shortened link: {}", save);
