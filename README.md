@@ -27,6 +27,10 @@ a link.
 Housekeeping is triggered with @Scheduler annotation every couple of minutes(configurable)
 and will clean old links. When link is created it is assigned an expiration time (configurable).
 
+#### Deployment notes
+This service can be deployed behind NGINX which will serve as a loadbalancer.
+
+
 #### Optimization Ideas
 One of optimization ideas is to use a couple of databases (DBs) 
 behind the scenes.
