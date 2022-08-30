@@ -20,7 +20,8 @@ the id. So if you type in the browser the link
 `http://localhost:8080/{linkId}` and will retrieve the link information.
 Of course the domain `http://localhost:8080` is configurable so you can park
 behind any good domain that you buy.
-Retrieving is fast since we only find in database by ID. Index of
+Retrieving is fast since we only find in database by ID.
+Index of
 primary key is used and we don't do select by other criteria when reading 
 a link.
 
