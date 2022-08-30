@@ -9,11 +9,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

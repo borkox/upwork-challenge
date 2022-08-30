@@ -15,11 +15,8 @@ public class UidGeneratorUtil {
     private static final int RANDOM_SIZE = 7;
 
     static {
-        try {
-            RANDOM = SecureRandom.getInstanceStrong();
-        } catch (NoSuchAlgorithmException e) {
-            throw new Error(e);
-        }
+        RANDOM = new Random();
+        RANDOM.setSeed(System.currentTimeMillis());
     }
 
     public static String generateUid() {
