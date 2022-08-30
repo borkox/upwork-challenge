@@ -24,7 +24,7 @@ public class HousekeepingService {
     private final Clock clock;
 
 
-    @Scheduled(fixedDelay = 50000)
+    @Scheduled(fixedRateString = "${housekeeping.interval}", initialDelayString = "${housekeeping.initial}")
     public void cleanExpired() {
         Instant now = Instant.now(clock);
         Date expiredBefore = Date.from(now);
