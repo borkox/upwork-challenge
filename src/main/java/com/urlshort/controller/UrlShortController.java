@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This controller is capable of creating a short links based on real long URLs.
+ */
 @RestController
 @RequestMapping("/api/url")
 public class UrlShortController {

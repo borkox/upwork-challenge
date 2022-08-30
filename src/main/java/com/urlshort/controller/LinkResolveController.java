@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This controller will resolve short links coming from users.
+ */
 @RestController
 @RequestMapping
 public class LinkResolveController {

@@ -1,11 +1,14 @@
 package com.urlshort.service;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Random;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * This utility is responsible to generate unique identifiers of links. Default strategy is to generate 7 symbols from
+ * enumerated characters. The chance that unique id to be repeated is really small (maybe once per couple of thousand
+ * years). Even if the ID is repeated it is still not a big problem for the application.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UidGeneratorUtil {
 
@@ -19,6 +22,10 @@ public class UidGeneratorUtil {
         RANDOM.setSeed(System.currentTimeMillis());
     }
 
+    /**
+     * Generate a pseudo-unique identifier. Chances for repeat are minimal (once per thousand years).
+     * @return fixed size UID.
+     */
     public static String generateUid() {
         StringBuilder builder = new StringBuilder();
         RANDOM.ints(RANDOM_SIZE)

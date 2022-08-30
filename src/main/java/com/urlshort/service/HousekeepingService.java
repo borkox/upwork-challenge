@@ -14,6 +14,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+/**
+ * This service is responsible to clean already expired links from database. The cleaning is performed regularly with
+ * '@Scheduled' annotation support from Spring. Deletion of expired links are made on portions given with constant
+ * 'MAX_CLEAN_AT_A_TIME' and default value of 30.
+ */
 @AllArgsConstructor
 @Service
 @Slf4j
@@ -22,7 +27,6 @@ public class HousekeepingService {
     public static final int MAX_CLEAN_AT_A_TIME = 30;
     private final UrlShortRepository repository;
     private final Clock clock;
-
 
     @Scheduled(fixedRateString = "${housekeeping.interval}", initialDelayString = "${housekeeping.initial}")
     public void cleanExpired() {
