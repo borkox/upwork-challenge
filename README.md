@@ -1,6 +1,6 @@
 # Upwork-challenge
 
-## URL Shortening Service
+## URL-Shortening Service
 
 ### Prerequisites
  * Java 11
@@ -12,18 +12,32 @@ Spring boot application is started and 2 REST controllers are introduced.
 UrlShortController is responsible to create short links based
 on generating a unique ID. The DB will validate that the id is unique.
 Example link: http://localhost:8080/1jsU1XA
-Here the ID is : `1jsU1XA` and consists of latin letters and numbers 0-9
-and is case-sensitive.
+Here the ID is `1jsU1XA` and consists of latin letters and numbers (a-zA-Z0-9) and is case-sensitive.
 
 Then LinkResolveController is responsible to retrieve the link based on
 the id. So if you type in the browser the link 
 `http://localhost:8080/1jsU1XA` the controller will recognize pattern
 `http://localhost:8080/{linkId}` and will retrieve the link information.
-Complexity is nearly O(1) since we only find in DB by ID and we don't 
-do select by other criteria.
+Of course the domain `http://localhost:8080` is configurable so you can park
+behind any good domain that you buy.
+Retrieving is fast since we only find in database by ID. Index of
+primary key is used and we don't do select by other criteria when reading 
+a link.
 
 Housekeeping is triggered with @Scheduler annotation every couple of minutes(configurable)
 and will clean old links. When link is created it is assigned an expiration time (configurable).
+
+#### Optimization Ideas
+One of optimization ideas is to use a couple of databases (DBs) 
+behind the scenes.
+Lets take example with 2 DBs. Each DB will hold portion of links 
+based on previously defined algorithm.
+For example first DB can hold links starting with `a` to `z`, second DB
+will hold all the rest.
+
+There is no need of transactions at all. We don't need to update links, unless
+we count visits the on each link. We only need to delete the expired links, 
+but even if a phantom read happens, it is not a problem.
 
 #### UrlShortController: 
  * POST `/api/url` 
@@ -47,7 +61,8 @@ Response:
 #### LinkResolveController
  * GET `/{urlId}`
  <br>Example: `http://localhost:8080/1jsU1XA`
- <br>Response: HTTP 303 Link: https://elinpelin.org/section-250-content.html
+ <br>Response: HTTP 303 
+ <br>Link: `https://elinpelin.org/section-250-content.html`
 
 ### Build 
 `mvn clean package`
@@ -56,8 +71,9 @@ Response:
 
 
 # Monetizing ideas
-* Links can be used to trace when and who clicked on it and how many times, this can be visible for 
-  payed users to url shortening service
+* Links can be used to trace when and who clicked on it 
+  and how many times, this can be visible for 
+  paid users registered in the Url-shortening service
 * Generating many links on demand can be visible to payed users only
 * Increasing expiry time for links can be a payed feature
 * Generating good looking URLs and not ugly can be payed feature, 
